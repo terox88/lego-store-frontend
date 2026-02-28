@@ -21,3 +21,18 @@ export const updateLegoSet = (id, data) => {
 export const deleteLegoSet = (id) => {
     return api.delete(`${API_URL}/${id}`);
 };
+export const increaseWarehouse = (id, amount) => {
+    return api.patch(`/api/lego-sets/${id}/warehouse/increase`, { amount });
+};
+
+export const decreaseWarehouse = (id, amount) => {
+    return api.patch(`/api/lego-sets/${id}/warehouse/decrease`, { amount });
+};
+
+export const increaseStore = (id, amount) => {
+    return api.patch(`/api/lego-sets/${id}/store/increase`, { amount });
+};
+
+export const decreaseStore = (id, amount) => {
+    return api.patch(`/api/lego-sets/${id}/store/decrease`, { amount });
+};
