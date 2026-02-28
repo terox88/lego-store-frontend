@@ -1,12 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import { deleteLegoSet } from "../services/legoService";
-import "../styles/table.css";
 import {
+    deleteLegoSet,
     increaseWarehouse,
     decreaseWarehouse,
     increaseStore,
     decreaseStore
 } from "../services/legoService";
+import "../styles/table.css";
 
 const LegoTable = ({ sets, setSets, sort, onSortChange }) => {
     const navigate = useNavigate();
@@ -30,7 +30,6 @@ const LegoTable = ({ sets, setSets, sort, onSortChange }) => {
     const handleStockChange = async (id, type, action) => {
         try {
             const amount = 1;
-
             let response;
 
             if (type === "warehouse") {
@@ -42,7 +41,6 @@ const LegoTable = ({ sets, setSets, sort, onSortChange }) => {
                     ? await increaseStore(id, amount)
                     : await decreaseStore(id, amount);
             }
-
 
             const updated = response.data;
 
@@ -81,6 +79,7 @@ const LegoTable = ({ sets, setSets, sort, onSortChange }) => {
                         Series {renderSortIcon("series")}
                     </th>
                     <th>Pieces</th>
+                    <th>Boxes</th>
                     <th>Stock</th>
                     <th onClick={() => handleSort("finalPrice")}>
                         Final Price {renderSortIcon("finalPrice")}
@@ -94,17 +93,21 @@ const LegoTable = ({ sets, setSets, sort, onSortChange }) => {
                 <tbody>
                 {sets.length === 0 ? (
                     <tr>
-                        <td colSpan="9" className="empty-row">
+                        <td colSpan="10" className="empty-row">
                             No Lego sets found
                         </td>
                     </tr>
                 ) : (
                     sets.map(set => (
-                        <tr key={set.id}>
+                        <tr
+                            key={set.id}
+                            className={set.discontinued ? "row-discontinued" : ""}
+                        >
                             <td>{set.name}</td>
                             <td>{set.setNumber}</td>
                             <td>{set.series}</td>
                             <td>{set.numberOfPieces}</td>
+                            <td>{set.numberOfBoxes}</td>
 
                             <td>
                                 <div className="stock-cell">
@@ -113,13 +116,17 @@ const LegoTable = ({ sets, setSets, sort, onSortChange }) => {
                                         <span>WH: {set.quantityInWarehouse}</span>
                                         <div className="stock-buttons">
                                             <button
-                                                onClick={() => handleStockChange(set.id, "warehouse", "increase")}
+                                                onClick={() =>
+                                                    handleStockChange(set.id, "warehouse", "increase")
+                                                }
                                             >
                                                 +
                                             </button>
                                             <button
                                                 disabled={set.quantityInWarehouse === 0}
-                                                onClick={() => handleStockChange(set.id, "warehouse", "decrease")}
+                                                onClick={() =>
+                                                    handleStockChange(set.id, "warehouse", "decrease")
+                                                }
                                             >
                                                 -
                                             </button>
@@ -130,13 +137,17 @@ const LegoTable = ({ sets, setSets, sort, onSortChange }) => {
                                         <span>Store: {set.quantityInStore}</span>
                                         <div className="stock-buttons">
                                             <button
-                                                onClick={() => handleStockChange(set.id, "store", "increase")}
+                                                onClick={() =>
+                                                    handleStockChange(set.id, "store", "increase")
+                                                }
                                             >
                                                 +
                                             </button>
                                             <button
                                                 disabled={set.quantityInStore === 0}
-                                                onClick={() => handleStockChange(set.id, "store", "decrease")}
+                                                onClick={() =>
+                                                    handleStockChange(set.id, "store", "decrease")
+                                                }
                                             >
                                                 -
                                             </button>
@@ -144,9 +155,8 @@ const LegoTable = ({ sets, setSets, sort, onSortChange }) => {
                                     </div>
 
                                     <span className="stock-total">
-      Total: {set.quantityTotal}
-    </span>
-
+                                            Total: {set.quantityTotal}
+                                        </span>
                                 </div>
                             </td>
 

@@ -54,13 +54,13 @@ const LegoFilters = ({ onFilterChange }) => {
                 return;
             }
 
-            // konwersja liczb
+
             if (key === "minPrice" || key === "maxPrice") {
                 cleaned[key] = Number(value);
                 return;
             }
 
-            // konwersja boolean
+
             if (key === "discontinued") {
                 cleaned[key] = value === "true";
                 return;
@@ -87,7 +87,7 @@ const LegoFilters = ({ onFilterChange }) => {
     };
 
     return (
-        <div style={{ marginBottom: "24px", display: "flex", gap: "12px", flexWrap: "wrap" }}>
+        <div className="filters-panel">
 
             <select name="series" value={localFilters.series} onChange={handleChange}>
                 <option value="">All series</option>
