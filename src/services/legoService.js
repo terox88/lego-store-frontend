@@ -36,3 +36,7 @@ export const increaseStore = (id, amount) => {
 export const decreaseStore = (id, amount) => {
     return api.patch(`/api/lego-sets/${id}/store/decrease`, { amount });
 };
+
+export const getRequestCount = () => {
+    return api.get("/api/metrics/requests");
+};
