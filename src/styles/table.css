@@ -117,6 +117,28 @@
     cursor: pointer;
 }
 
+.sets-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.primary-btn {
+    background: #16a34a;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.15s ease;
+}
+
+.primary-btn:hover {
+    background: #15803d;
+}
+
 .filters-panel button:hover {
     background: #1d4ed8;
 }
